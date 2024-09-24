@@ -12,8 +12,8 @@ devDependencies:
     specifier: ^6.15.0
     version: 6.15.0(eslint@8.56.0)(typescript@5.3.3)
   dockview-core:
-    specifier: ^1.8.5
-    version: 1.8.5
+    specifier: ^1.17.1
+    version: 1.17.1
   eslint:
     specifier: ^8.56.0
     version: 8.56.0
@@ -901,6 +901,10 @@ packages:
       string-argv: 0.3.2
     dev: true
 
+  /@types/argparse@1.0.38:
+    resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
+    dev: true
+
   /@types/babel__core@7.20.5:
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
     dependencies:
@@ -1431,8 +1435,8 @@ packages:
       path-type: 4.0.0
     dev: true
 
-  /dockview-core@1.8.5:
-    resolution: {integrity: sha512-ryhqBpxvQ2U43b5kFO86M7ty+ElLJ4fxaVKvWr/2QatKyc6/oScc5jIYu0zveyHs6iAbbY+z7igOJSSsFtDw3w==}
+  /dockview-core@1.17.1:
+    resolution: {integrity: sha512-lSdArYw1pH++1G8yv2OJtt3Pdp52YYGHr/pguaOTnVILRUzDpusYs/qmnNeb8ejpU87MqIeuuqfx+6d/A6T4Lg==}
     dev: true
 
   /doctrine@3.0.0:
@@ -2733,10 +2737,4 @@ packages:
       validator: 13.11.0
     optionalDependencies:
       commander: 9.5.0
-    dev: true
-
-  /@types/argparse@1.0.38:
-    resolution: {integrity: sha512-ebDJ9b0e702Yr7pWgB0jzm+CX4Srzz8RcXtLJDJB+BSccqMa36uyH/zUsSYao5+BD1ytv3k3rPYCq4mAE1hsXA==}
-    name: '@types/argparse'
-    version: 1.0.38
     dev: true
