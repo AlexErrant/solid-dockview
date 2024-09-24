@@ -19,13 +19,13 @@ export type DockPanelProps = ParentProps<{
   /** custom class name for content wrapper. default: "solid-dockview-panel-content" */
   class?: string;
 
-  /** custom class name for content wrapper. default: "default-tab" */
+  /** custom class name for content wrapper. default: "dv-default-tab" */
   tabClass?: string;
 
   /** set to false to hide closing button */
   closeable?: boolean;
 
-  /** one or more buttons before "close button", typically is `<div class="tab-action"> ... </div>` */
+  /** one or more buttons before "close button", typically is `<div class="dv-default-tab-action"> ... </div>` */
   actions?: JSXElement | JSXElement[];
 
   floating?: AddPanelOptions["floating"];
@@ -143,7 +143,7 @@ function setupTab(props: DockPanelProps, panel: DockviewPanel, placeholder: HTML
     }
   });
 
-  const className = createMemo(() => props.tabClass || "default-tab");
+  const className = createMemo(() => props.tabClass || "dv-default-tab");
   return createMemo(() => (
     <Portal
       mount={placeholder}
@@ -151,14 +151,14 @@ function setupTab(props: DockPanelProps, panel: DockviewPanel, placeholder: HTML
         createEffect(() => (div.className = className()));
       }}
     >
-      {/* <div class="default-tab"> */}
-      <div class="tab-content">{computedTitle()}</div>
+      {/* <div class="dv-default-tab"> */}
+      <div class="dv-default-tab-content">{computedTitle()}</div>
       <div class="action-container" onMouseDown={(e) => e.preventDefault()}>
         <ul class="tab-list">
           {props.actions}
           {!!(props.closeable ?? true) && (
             <div
-              class="tab-action"
+              class="dv-default-tab-action"
               onClick={(e) => {
                 panel.api.close();
                 e.preventDefault();

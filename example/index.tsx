@@ -145,7 +145,7 @@ function ComplexExamplePanel(props: {}) {
       }
       closeable={closable()}
       actions={[
-        <button class="tab-action" onClick={() => setStarred((v) => !v)} title="Toggle Star">
+        <button class="dv-default-tab-action" onClick={() => setStarred((v) => !v)} title="Toggle Star">
           <StarSVG filled={starred()} />
         </button>,
       ]}
