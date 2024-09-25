@@ -129,7 +129,7 @@ const App = () => {
   );
 };
 
-function ComplexExamplePanel(props: {}) {
+function ComplexExamplePanel(_props: {}) {
   const [title, setTitle] = createSignal("hello");
   const [closable, setClosable] = createSignal(true);
   const [starred, setStarred] = createSignal(false);

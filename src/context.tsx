@@ -11,7 +11,7 @@ import {
   PanelContentRenderer,
   PanelTabRenderer,
   createGroupHeaderComponent,
-  createWatermarkComponent,
+  WatermarkComponent,
 } from "./glue-component";
 
 export const DockViewContext = createContext<ReturnType<typeof createDockViewContext>>();
@@ -29,22 +29,21 @@ export function createDockViewContext(props: DockViewProps) {
   };
 
   const options: DockviewComponentOptions = {
-    parentElement: element,
-    components: {
-      default: PanelContentRenderer,
-    },
-    tabComponents: {
-      default: PanelTabRenderer,
-    },
+    createComponent: () => new PanelContentRenderer(),
+    createTabComponent: () => new PanelTabRenderer(),
     singleTabMode: props.singleTabMode,
-    watermarkComponent: createWatermarkComponent(props, addExtraRender),
-    createPrefixHeaderActionsElement: createGroupHeaderComponent(props, "prefixHeaderActionsComponent", addExtraRender),
-    createLeftHeaderActionsElement: createGroupHeaderComponent(props, "leftHeaderActionsComponent", addExtraRender),
-    createRightHeaderActionsElement: createGroupHeaderComponent(props, "rightHeaderActionsComponent", addExtraRender),
+    createWatermarkComponent: () => new WatermarkComponent(props, addExtraRender),
+    createPrefixHeaderActionComponent: createGroupHeaderComponent(
+      props,
+      "prefixHeaderActionsComponent",
+      addExtraRender,
+    ),
+    createLeftHeaderActionComponent: createGroupHeaderComponent(props, "leftHeaderActionsComponent", addExtraRender),
+    createRightHeaderActionComponent: createGroupHeaderComponent(props, "rightHeaderActionsComponent", addExtraRender),
   };
 
   props.onBeforeCreate?.(options, props);
-  const dockview = new DockviewComponent(options);
+  const dockview = new DockviewComponent(element, options);
 
   // add event listeners
   dockviewEventNames.forEach((eventName) => {

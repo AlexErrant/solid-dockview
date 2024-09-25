@@ -16,52 +16,57 @@ import { withReactiveProps } from "./utils";
 
 type AddExtraRender = (render: Accessor<JSXElement>) => () => void;
 
-export function createWatermarkComponent(props: DockViewProps, addExtraRender: AddExtraRender) {
-  return class WatermarkComponent implements IWatermarkRenderer {
-    _element!: HTMLElement;
-    _remove?: () => void;
+export class WatermarkComponent implements IWatermarkRenderer {
+  _element!: HTMLElement;
+  _remove?: () => void;
+  _props: DockViewProps;
+  _addExtraRender: AddExtraRender;
 
-    get element() {
-      return this._element;
-    }
+  constructor(props: DockViewProps, addExtraRender: AddExtraRender) {
+    this._props = props;
+    this._addExtraRender = addExtraRender;
+  }
 
-    init(params: WatermarkRendererInitParameters): void {
-      const outerElement = document.createElement("div");
-      outerElement.style.display = "contents";
-      this._element = outerElement;
+  get element() {
+    return this._element;
+  }
 
-      const watermarkProps: DockViewWatermarkProps = {
-        ...params,
-        close() {
-          if (params.group) {
-            params.containerApi.removeGroup(params.group);
-          }
-        },
-      };
+  init(params: WatermarkRendererInitParameters): void {
+    const outerElement = document.createElement("div");
+    outerElement.style.display = "contents";
+    this._element = outerElement;
 
-      // must be a render function, or <DockView> will not correctly handle user's watermark component's lifecycle
-      // (maybe the signal containing <Portal>, must be created and initialized at the moment that <For> renders a new item?)
-      const jsxRender = () => (
-        <Portal
-          mount={outerElement}
-          ref={(div) => {
-            div.style.display = "contents";
-          }}
-        >
-          {!!props.watermarkComponent && createComponent(props.watermarkComponent, watermarkProps)}
-        </Portal>
-      );
+    const watermarkProps: DockViewWatermarkProps = {
+      ...params,
+      close() {
+        if (params.group) {
+          params.containerApi.removeGroup(params.group);
+        }
+      },
+    };
 
-      const dispose = addExtraRender(jsxRender);
-      this._remove = dispose;
-    }
+    // must be a render function, or <DockView> will not correctly handle user's watermark component's lifecycle
+    // (maybe the signal containing <Portal>, must be created and initialized at the moment that <For> renders a new item?)
+    const jsxRender = () => (
+      <Portal
+        mount={outerElement}
+        ref={(div) => {
+          div.style.display = "contents";
+        }}
+      >
+        {!!this._props.watermarkComponent && createComponent(this._props.watermarkComponent, watermarkProps)}
+      </Portal>
+    );
 
-    dispose(): void {
-      this._remove?.();
-    }
+    const dispose = this._addExtraRender(jsxRender);
+    this._remove = dispose;
+  }
 
-    updateParentGroup(_group: DockviewGroupPanel, _visible: boolean): void {}
-  };
+  dispose(): void {
+    this._remove?.();
+  }
+
+  updateParentGroup(_group: DockviewGroupPanel, _visible: boolean): void {}
 }
 
 export function createGroupHeaderComponent(
