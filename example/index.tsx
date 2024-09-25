@@ -39,10 +39,8 @@ const App = () => {
     ]);
 
     // after next rendering, move the panel to given group
-    createEffect(() => {
-      const panel = currentDockview.panels.find((x) => x.id === id);
-      panel?.api.moveTo({ group });
-    });
+    const panel = currentDockview.panels.find((x) => x.id === id);
+    panel?.api.moveTo({ group });
   }
 
   return (
