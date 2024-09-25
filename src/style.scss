@@ -2,6 +2,14 @@
   display: contents;
 }
 
+// from https://github.com/mathuo/dockview/commit/4a9a791047c666453c1c677de5859cc833d1746b#diff-fe0e085aef487d548e00919328962e65b3055d6ae52cada7905777a8037039c6L72-L76
+.solid-dockview-tab-list {
+  display: flex;
+  padding: 0px;
+  margin: 0px;
+  justify-content: flex-end;
+}
+
 /* in case <button> */
 .dv-default-tab .dv-default-tab-action {
   border: 0;

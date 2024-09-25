@@ -154,7 +154,7 @@ function setupTab(props: DockPanelProps, panel: DockviewPanel, placeholder: HTML
       {/* <div class="dv-default-tab"> */}
       <div class="dv-default-tab-content">{computedTitle()}</div>
       <div class="action-container" onMouseDown={(e) => e.preventDefault()}>
-        <ul class="tab-list">
+        <ul class="solid-dockview-tab-list">
           {props.actions}
           {!!(props.closeable ?? true) && (
             <div
